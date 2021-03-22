@@ -18,7 +18,7 @@ nextflow.enable.dsl = 2
 def json_schema = "$projectDir/nextflow_schema.json"
 if (params.help) {
     // TODO nf-core: Update typical command used to run pipeline
-    def command = "nextflow run nf-core/crisprquant --input samplesheet.csv -profile docker"
+    def command = "nextflow run nf-core/crisprquant --input samplesheet.csv --library -profile docker"
     log.info Schema.params_help(workflow, params, json_schema, command)
     exit 0
 }
@@ -65,7 +65,8 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 
 // Check mandatory parameters
 if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input samplesheet not specified!' }
-if (params.fasta) { ch_fasta = file(params.fasta) } else { exit 1, 'Genome fasta file not specified!' }
+if (params.library) { ch_library = file(params.library) } else { exit 1, 'Library file not specified!' }
+//if (params.fasta) { ch_fasta = file(params.fasta) } else { exit 1, 'Genome fasta file not specified!' }
 
 ////////////////////////////////////////////////////
 /* --          CONFIG FILES                    -- */
@@ -88,11 +89,16 @@ multiqc_options.args += params.multiqc_title ? " --title \"$params.multiqc_title
 include { GET_SOFTWARE_VERSIONS } from './modules/local/process/get_software_versions' addParams( options: [publish_files : ['csv':'']] )
 
 // Local: Sub-workflows
-include { INPUT_CHECK           } from './modules/local/subworkflow/input_check'       addParams( options: [:]                          )
+include { INPUT_CHECK           } from './modules/local/subworkflow/input_check'       addParams( options: [:]                           )
+include { FASTA_REF             } from './modules/local/subworkflow/fasta_ref'         addParams( options: [:]                           )
+include { MAGECK_COUNT          } from './modules/local/subworkflow/mageck_count'   addParams( options: [:]                              )
+
 
 // nf-core/modules: Modules
 include { FASTQC                } from './modules/nf-core/software/fastqc/main'        addParams( options: modules['fastqc']            )
 include { MULTIQC               } from './modules/nf-core/software/multiqc/main'       addParams( options: multiqc_options              )
+include { BOWTIE2_BUILD            } from './modules/nf-core/software/bowtie2/build/main'       addParams( options: [:]              )
+
 
 ////////////////////////////////////////////////////
 /* --           RUN MAIN WORKFLOW              -- */
@@ -112,13 +118,29 @@ workflow {
         ch_input
     )
 
+    FASTA_REF (
+        ch_library
+    )
+
+//    MAGECK_COUNT (
+//        tuple(INPUT_CHECK.out.reads, ch_library)
+//    )
+
     /*
      * MODULE: Run FastQC
      */
+    //INPUT_CHECK.out.reads.view()
+
+    INPUT_CHECK.out.reads.buffer { it == "*.fastq.gz" }.view()
+
     FASTQC (
         INPUT_CHECK.out.reads
     )
     ch_software_versions = ch_software_versions.mix(FASTQC.out.version.first().ifEmpty(null))
+
+    BOWTIE2_BUILD (
+        FASTA_REF.out
+    )
     
 
     /*
