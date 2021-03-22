@@ -45,10 +45,10 @@ def check_samplesheet(file_in, file_out):
     This function checks that the samplesheet follows the following structure:
 
     group,replicate,fastq_1,fastq_2
-    WT,1,WT_LIB1_REP1_1.fastq.gz,WT_LIB1_REP1_2.fastq.gz
-    WT,1,WT_LIB2_REP1_1.fastq.gz,WT_LIB2_REP1_2.fastq.gz
-    WT,2,WT_LIB1_REP2_1.fastq.gz,WT_LIB1_REP2_2.fastq.gz
-    KO,1,KO_LIB1_REP1_1.fastq.gz,KO_LIB1_REP1_2.fastq.gz
+    Untreated,1,UNTREATED_LIB1_REP1_1.fastq.gz,
+    Untreated,1,UNTREATED_LIB2_REP1_1.fastq.gz,
+    Untreated,2,UNTREATED_LIB1_REP2_1.fastq.gz,
+    TREATED,1,TREATED.fastq.gz,
     """
 
     sample_run_dict = {}
@@ -106,7 +106,6 @@ def check_samplesheet(file_in, file_out):
                             "Line",
                             line,
                         )
-
             ## Auto-detect paired-end/single-end
             sample_info = []  ## [single_end, fastq_1, fastq_2]
             if sample and fastq_1 and fastq_2:  ## Paired-end short reads
@@ -117,7 +116,7 @@ def check_samplesheet(file_in, file_out):
                 print_error("Invalid combination of columns provided!", "Line", line)
             ## Create sample mapping dictionary = {sample: {replicate : [ single_end, fastq_1, fastq_2 ]}}
             if sample not in sample_run_dict:
-                sample_run_dict[sample] = {}
+              sample_run_dict[sample] = {}
             if replicate not in sample_run_dict[sample]:
                 sample_run_dict[sample][replicate] = [sample_info]
             else:
