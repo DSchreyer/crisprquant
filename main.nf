@@ -148,8 +148,15 @@ workflow {
         CUTADAPT.out.reads, BOWTIE2_BUILD.out.index
     )
 
+    INPUT_CHECK.out.reads.map{
+    meta, file ->
+    ["group", meta, file]}.groupTuple().map{
+        group, meta, file ->
+        [meta, file]
+    }.set{mageck_input_ch}
+
     MAGECK_COUNT (
-        BOWTIE2_ALIGN.out.bam.map{it}.collect(), ch_library, FASTA_REF.out
+        mageck_input_ch, ch_library
     )
 
     /*
