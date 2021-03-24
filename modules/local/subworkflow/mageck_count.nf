@@ -1,5 +1,5 @@
 // Import generic module functions
-//include { initOptions; saveFiles; getSoftwareName } from './functions'
+include { initOptions; saveFiles; getSoftwareName } from '../process/functions'
 
 // TODO nf-core: If in doubt look at other nf-core/modules to see how we are doing things! :)
 //               https://github.com/nf-core/modules/tree/master/software
@@ -18,11 +18,10 @@
 // TODO nf-core: Optional inputs are not currently supported by Nextflow. However, "fake files" MAY be used to work around this issue.
 
 params.options = [:]
-//options        = initOptions(params.options)
+options        = initOptions(params.options)
 
 process MAGECK_COUNT {
-    tag "$idInput"
-    echo true
+    tag "$id"
     label 'process_medium'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
@@ -46,19 +45,23 @@ process MAGECK_COUNT {
     //               https://github.com/nf-core/modules/blob/master/software/bwa/index/main.nf
     // TODO nf-core: Where applicable please provide/convert compressed files as input/output
     //               e.g. "*.fastq.gz" and NOT "*.fastq", "*.bam" and NOT "*.sam" etc.
-    val array
-    file library
-    file fasta
 
+    tuple val(meta), path(file)
+    path(library)
     output:
+    path 'mageck.count.txt', emit: count
+    path 'mageck.count_normalized.txt', emit: norm
+    path 'library_mageck.txt', emit: library
+
+
     // TODO nf-core: Named file extensions MUST be emitted for ALL output channels
 //    tuple val(meta), path("*.bam"), emit: bam
 //    // TODO nf-core: List additional required output channels/values here
 //    path "*.version.txt"          , emit: version
 
     script:
-//    def software = getSoftwareName(task.process)
-//    def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+    def software = getSoftwareName(task.process)
+    //def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     // TODO nf-core: Where possible, a command MUST be provided to obtain the version number of the software e.g. 1.10
     //               If the software is unable to output a version number on the command-line then it can be manually specified
     //               e.g. https://github.com/nf-core/modules/blob/master/software/homer/annotatepeaks/main.nf
@@ -67,34 +70,17 @@ process MAGECK_COUNT {
     //               using the Nextflow "task" variable e.g. "--threads $task.cpus"
     // TODO nf-core: Please replace the example samtools command below with your module's command
     // TODO nf-core: Please indent the command appropriately (4 spaces!!) to help with readability ;)
-    
-    def allSingleEnd = []
-    def allFiles = []
-    def allIDs = []
 
-    for (i = 0; i < array.size(); i++) {
-        allIDs.add(array[i]["id"])
-        singleEnd = array[i]["single_end"]
-        i = i + 1
-
-        if (singleEnd) {
-            file = array[i]
-            allFiles.add(file)
-        }
-    }
-
-    idInput = allIDs.join(",")
-    fileInput = allFiles.join(" ")
+    id = meta.id.join(",")
 
     """
     sed 's/,/\t/g' $library > library_mageck.txt
-    echo $fasta
     echo $library
     head library_mageck.txt
-    echo mageck count \
+    mageck count \
         -l library_mageck.txt \
         -n mageck \
-        --sample-label $idInput \
-        --fastq $fileInput
+        --sample-label $id \
+        --fastq $file
     """
 }
