@@ -21,8 +21,9 @@ params.options = [:]
 //options        = initOptions(params.options)
 
 process MAGECK_COUNT {
-    tag "$meta.id"
-    label 'process_high'
+    tag "$idInput"
+    echo true
+    label 'process_medium'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
         saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), publish_id:meta.id) }
@@ -45,17 +46,19 @@ process MAGECK_COUNT {
     //               https://github.com/nf-core/modules/blob/master/software/bwa/index/main.nf
     // TODO nf-core: Where applicable please provide/convert compressed files as input/output
     //               e.g. "*.fastq.gz" and NOT "*.fastq", "*.bam" and NOT "*.sam" etc.
-    tuple tuple(val(meta), path(reads)), path(library)
+    val array
+    file library
+    file fasta
 
     output:
     // TODO nf-core: Named file extensions MUST be emitted for ALL output channels
-    tuple val(meta), path("*.bam"), emit: bam
-    // TODO nf-core: List additional required output channels/values here
-    path "*.version.txt"          , emit: version
+//    tuple val(meta), path("*.bam"), emit: bam
+//    // TODO nf-core: List additional required output channels/values here
+//    path "*.version.txt"          , emit: version
 
     script:
-    def software = getSoftwareName(task.process)
-    def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
+//    def software = getSoftwareName(task.process)
+//    def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     // TODO nf-core: Where possible, a command MUST be provided to obtain the version number of the software e.g. 1.10
     //               If the software is unable to output a version number on the command-line then it can be manually specified
     //               e.g. https://github.com/nf-core/modules/blob/master/software/homer/annotatepeaks/main.nf
@@ -64,16 +67,34 @@ process MAGECK_COUNT {
     //               using the Nextflow "task" variable e.g. "--threads $task.cpus"
     // TODO nf-core: Please replace the example samtools command below with your module's command
     // TODO nf-core: Please indent the command appropriately (4 spaces!!) to help with readability ;)
-    """
-    export OMP_NUM_THREADS=$task.cpus
-    mageck \\
-        count \\
-        $options.args \\
-        -l $library \\
-        --fastq $reads \\
-        --sample-label $samples \\
-        -n $publish_dir
+    
+    def allSingleEnd = []
+    def allFiles = []
+    def allIDs = []
 
-    echo \$(mageck --version 2>&1) > ${software}.version.txt
+    for (i = 0; i < array.size(); i++) {
+        allIDs.add(array[i]["id"])
+        singleEnd = array[i]["single_end"]
+        i = i + 1
+
+        if (singleEnd) {
+            file = array[i]
+            allFiles.add(file)
+        }
+    }
+
+    idInput = allIDs.join(",")
+    fileInput = allFiles.join(" ")
+
+    """
+    sed 's/,/\t/g' $library > library_mageck.txt
+    echo $fasta
+    echo $library
+    head library_mageck.txt
+    echo mageck count \
+        -l library_mageck.txt \
+        -n mageck \
+        --sample-label $idInput \
+        --fastq $fileInput
     """
 }
