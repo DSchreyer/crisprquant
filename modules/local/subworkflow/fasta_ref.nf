@@ -10,8 +10,8 @@ include {
 
 workflow INPUT_CHECK {
     take:
-    library // file: /path/to/samplesheet.csv
-    
+    library // file: /path/to/library.txt
+
     main:
     FASTA_REF ( library )
         .splitCsv ( header:true, sep:',' )
