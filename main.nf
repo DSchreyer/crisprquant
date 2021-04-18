@@ -68,6 +68,7 @@ if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input sample
 if (params.library) { ch_library = file(params.library) } else { exit 1, 'Library file not specified!' }
 //if (params.fasta) { ch_fasta = file(params.fasta) } else { exit 1, 'Genome fasta file not specified!' }
 
+if (params.pinapl_config) { ch_pinconfig = file(params.pinapl_config) } else { exit 1, 'pinAPL-py config file does not exist' }
 ////////////////////////////////////////////////////
 /* --          CONFIG FILES                    -- */
 ////////////////////////////////////////////////////
@@ -90,8 +91,10 @@ include { GET_SOFTWARE_VERSIONS } from './modules/local/process/get_software_ver
 
 // Local: Sub-workflows
 include { INPUT_CHECK           } from './modules/local/subworkflow/input_check'       addParams( options: [:]                          )
-include { FASTA_REF             } from './modules/local/subworkflow/fasta_ref'         addParams( options: [:]                          )
+include { GET_LIBRARY_FASTA     } from './modules/local/subworkflow/get_library_fasta'         addParams( options: [:]                          )
+include { CONVERT_LIBRARY_FILE  } from './modules/local/subworkflow/convert_library_file'   addParams( options: [:]                             )
 include { MAGECK_COUNT          } from './modules/local/subworkflow/mageck_count'   addParams( options: [:]                             )
+include { PINAPLPY              } from './modules/local/pinaplpy'   addParams( options: [:]                             )
 
 // nf-core/modules: Modules
 include { FASTQC                } from './modules/nf-core/software/fastqc/main'        addParams( options: modules['fastqc']            )
@@ -119,7 +122,10 @@ workflow {
         ch_input
     )
 
-    FASTA_REF (
+    GET_LIBRARY_FASTA (
+        ch_library
+    )
+    CONVERT_LIBRARY_FILE (
         ch_library
     )
 
@@ -137,7 +143,7 @@ workflow {
     ch_software_versions = ch_software_versions.mix(FASTQC.out.version.first().ifEmpty(null))
 
     BOWTIE2_BUILD (
-        FASTA_REF.out
+        GET_LIBRARY_FASTA.out
     )
 
     CUTADAPT (
@@ -148,7 +154,8 @@ workflow {
         CUTADAPT.out.reads, BOWTIE2_BUILD.out.index
     )
 
-    INPUT_CHECK.out.reads.map{
+    // generate channel for mageck 
+    BOWTIE2_ALIGN.out.bam.map{
     meta, file ->
     ["group", meta, file]}.groupTuple().map{
         group, meta, file ->
@@ -158,6 +165,10 @@ workflow {
     MAGECK_COUNT (
         mageck_input_ch, ch_library
     )
+
+//    PINAPLPY (
+//        ch_pinconfig
+//    )
 
     /*
      * MODULE: Pipeline reporting
