@@ -6,7 +6,7 @@ params.options = [:]
 /*
  * Generate Fasta file from Library txt file
  */
-process FASTA_REF {
+process GET_LIBRARY_FASTA {
     tag "$library"
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
