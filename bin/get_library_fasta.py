@@ -43,6 +43,7 @@ def get_library_fasta(file_in, file_out):
     """
 
     fasta_run_dict = {}
+    print(file_in)
     with open(file_in, "r") as fin:
         ## Check header
         MIN_COLS = 3

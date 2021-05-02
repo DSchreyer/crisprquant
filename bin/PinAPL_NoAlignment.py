@@ -16,12 +16,15 @@ import itertools
 import time
 import glob
 import pandas
+import sys
 from PrintStatus import *
 from ReadDataSheet import *
 from ExtractTop10Genes import *
 
+config_file_path = sys.argv[1]
+
 # Open configuration file
-configFile = open('configuration.yaml','r')
+configFile = open(config_file_path,'r')
 config = yaml.load(configFile)
 configFile.close()  
 # Get parameters 

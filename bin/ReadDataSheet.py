@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 Created on Sat Feb 11 14:57:08 2017
@@ -12,7 +13,7 @@ import yaml
 import pandas
 
 def GetSamples():
-    configFile = open('configuration.yaml','r')
+    configFile = open('test-data/configuration.yaml','r')
     config = yaml.load(configFile)
     configFile.close()
     WorkingDir = config['WorkingDir']     
