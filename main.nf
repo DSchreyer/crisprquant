@@ -68,7 +68,7 @@ if (params.input) { ch_input = file(params.input) } else { exit 1, 'Input sample
 if (params.library) { ch_library = file(params.library) } else { exit 1, 'Library file not specified!' }
 //if (params.fasta) { ch_fasta = file(params.fasta) } else { exit 1, 'Genome fasta file not specified!' }
 
-if (params.pinapl_config) { ch_pinconfig = file(params.pinapl_config) } else { exit 1, 'pinAPL-py config file does not exist' }
+if (params.pinapl_config) { ch_pinaplconfig = file(params.pinapl_config) } else { exit 1, 'pinAPL-py config file does not exist' }
 ////////////////////////////////////////////////////
 /* --          CONFIG FILES                    -- */
 ////////////////////////////////////////////////////
@@ -166,9 +166,9 @@ workflow {
         mageck_input_ch, ch_library
     )
 
-//    PINAPLPY (
-//        ch_pinconfig
-//    )
+    PINAPLPY (
+        ch_pinaplconfig
+    )
 
     /*
      * MODULE: Pipeline reporting
