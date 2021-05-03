@@ -69,6 +69,7 @@ if (params.library) { ch_library = file(params.library) } else { exit 1, 'Librar
 //if (params.fasta) { ch_fasta = file(params.fasta) } else { exit 1, 'Genome fasta file not specified!' }
 
 if (params.pinapl_config) { ch_pinaplconfig = file(params.pinapl_config) } else { exit 1, 'pinAPL-py config file does not exist' }
+if (params.pinapl_datasheet) { ch_datasheet = file(params.pinapl_datasheet) } else { exit 1, 'pinAPL-py datasheet does not exist' }
 ////////////////////////////////////////////////////
 /* --          CONFIG FILES                    -- */
 ////////////////////////////////////////////////////
@@ -167,7 +168,7 @@ workflow {
     )
 
     PINAPLPY (
-        ch_pinaplconfig
+        ch_pinaplconfig, ch_datasheet, CONVERT_LIBRARY_FILE.out.pinapl_library
     )
 
     /*
