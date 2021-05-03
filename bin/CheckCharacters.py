@@ -87,37 +87,37 @@ def RunSanityCheck():
     # --------------------------------------------------------------------
     # Replace non-printable characters from filenames 
     # --------------------------------------------------------------------      
-    os.chdir(DataDir)    
-    BadFileCharFound = False        
-    for j in range(F):
-        Filename = Filenames[j]
-        Filename0 = Filename
-        for bad_char in BadCharacters:
-            Filename0 = Filename0.replace(bad_char,'_')
-        if Filename0 != Filename:
-            BadFileCharFound = True
-            os.system('mv '+"'"+Filename+"'"+' '+Filename0)
-            DataSheet['FILENAME'][j] = Filename0  
-            print("WARNING: Special characters in filenames names replaced by '_'")
+    # os.chdir(DataDir)    
+    # BadFileCharFound = False        
+    # for j in range(F):
+    #     Filename = Filenames[j]
+    #     Filename0 = Filename
+    #     for bad_char in BadCharacters:
+    #         Filename0 = Filename0.replace(bad_char,'_')
+    #     if Filename0 != Filename:
+    #         BadFileCharFound = True
+    #         os.system('mv '+"'"+Filename+"'"+' '+Filename0)
+    #         DataSheet['FILENAME'][j] = Filename0  
+    #         print("WARNING: Special characters in filenames names replaced by '_'")
 
     # --------------------------------------------------------------------
     # Replace non-printable characters from sample names 
     # --------------------------------------------------------------------   
-    TreatmentList0 = TreatmentList
-    BadSampleCharFound = False 
-    for bad_char in BadCharacters:
-        TreatmentList0 = [str(treatment).replace(bad_char,'_') for treatment in TreatmentList0]
-    if TreatmentList0 != TreatmentList:
-        BadSampleCharFound = True
-        DataSheet['TREATMENT'] = TreatmentList0        
-        print("WARNING: Special characters in sample names replaced by '_'")
-        
+    # TreatmentList0 = TreatmentList
+    # BadSampleCharFound = False 
+    # for bad_char in BadCharacters:
+    #     TreatmentList0 = [str(treatment).replace(bad_char,'_') for treatment in TreatmentList0]
+    # if TreatmentList0 != TreatmentList:
+    #     BadSampleCharFound = True
+    #     DataSheet['TREATMENT'] = TreatmentList0        
+    #     print("WARNING: Special characters in sample names replaced by '_'")
+    #     
     # --------------------------------------------------------------------
     # Update Data Sheet
     # --------------------------------------------------------------------            
-    if BadFileCharFound or BadSampleCharFound:
-        os.chdir(WorkingDir)
-        DataSheet.to_excel('DataSheet.xlsx',columns=['FILENAME','TREATMENT'])        
+    ä if BadFileCharFound or BadSampleCharFound:
+    ä     os.chdir(WorkingDir)
+    ä     DataSheet.to_excel('DataSheet.xlsx',columns=['FILENAME','TREATMENT'])        
 
     # --------------------------------------------------------------------
     # No special characters found

@@ -13,12 +13,12 @@ import yaml
 import pandas
 
 def GetSamples():
-    configFile = open('test-data/configuration.yaml','r')
+    configFile = open('configuration.yaml','r')
     config = yaml.load(configFile)
     configFile.close()
     WorkingDir = config['WorkingDir']     
     ScriptsDir = config['ScriptsDir']
-    os.chdir(WorkingDir)
+    # os.chdir(WorkingDir)
     DataSheet = pandas.read_excel('DataSheet.xlsx')
     FileNames = list(DataSheet['FILENAME'].values)
     TreatmentList = list(DataSheet['TREATMENT'].values)
@@ -33,5 +33,5 @@ def GetSamples():
     for treatment in Treatments:
         replist = [SampleNames[j] for j in range(n) if TreatmentList[j] == treatment]
         Replicates[treatment] = replist
-    os.chdir(ScriptsDir)
+    # os.chdir(ScriptsDir)
     return SampleNames, Treatments, TreatmentSamples, Replicates

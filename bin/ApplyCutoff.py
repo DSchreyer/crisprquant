@@ -64,7 +64,6 @@ def ReadCountCutoff(sample):
     global geneIDs; geneIDs = list(LibFile['gene'])
     G = len(set(geneIDs)) 
 
-        
     # Load sgRNA counts
     os.chdir(sgRNAReadCountDir)
     colnames = ['ID','gene','counts']
