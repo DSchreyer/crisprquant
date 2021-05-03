@@ -80,15 +80,15 @@ os.system('cp configuration.yaml '+ScriptsDir)
 os.chdir(ScriptsDir)
 
 # Print Header
-os.system('python -u PrintStatus.py Header blank 2>&1 | tee PinAPL-Py.log')
+os.system('PrintStatus.py Header blank 2>&1 | tee PinAPL-Py.log')
 start = time.time()
 
 # Character sanity check
-StatMsg = 'Running character sanity check ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
-os.system('python -u '+SanityScript+'.py 2>&1 | tee -a PinAPL-Py.log')
-DoneMsg = 'Character sanity check completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+# StatMsg = 'Running character sanity check ...'
+# os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+# os.system(''+SanityScript+'.py 2>&1 | tee -a PinAPL-Py.log')
+# DoneMsg = 'Character sanity check completed.'
+# os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 ## Generate index if not present
 #if not os.path.exists(IndexDir):
@@ -100,11 +100,11 @@ os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.l
 
 # Read Samples
 StatMsg = 'Reading sample definition input ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
-os.system('python -u '+LoaderScript+'.py 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system(''+LoaderScript+'.py 2>&1 | tee -a PinAPL-Py.log')
 SampleNames, Treatments, TreatmentSamples, Replicates = GetSamples()
 DoneMsg = 'Sample definition completed.'    
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 ## Run Sequence Quality Control
 #StatMsg = 'Running sequence quality control ...'
@@ -142,15 +142,16 @@ os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.l
 
 # Get sgRNA and Gene Read Counts
 StatMsg = 'Collecting read counts ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 for sample in SampleNames:
     # Analyze alignment output and get sgRNA counts
-    os.system('python -u PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
-    #os.system('python -u '+ClassifyScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system(''+ClassifyScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    exit()
     # Apply sgRNA count cutoff and get gene counts
-    os.system('python -u '+CutoffScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system(''+CutoffScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
 DoneMsg = 'Read count acquisition completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')     
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')     
 
 ## Delete temporary alignment output
 #if NewAlignmentDone:
@@ -165,18 +166,18 @@ os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.l
 
 # Average counts over replicates
 StatMsg = 'Averaging read counts over replicates ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 for treatment in Treatments:
-    os.system('python -u '+AverageCountsScript+'.py '+treatment+' 2>&1 | tee -a PinAPL-Py.log' )
+    os.system(''+AverageCountsScript+'.py '+treatment+' 2>&1 | tee -a PinAPL-Py.log' )
 DoneMsg = 'Read count averaging completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Normalize Counts
 StatMsg = 'Normalizing read counts ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
-os.system('python -u '+NormalizeScript+'.py'+' 2>&1 | tee -a PinAPL-Py.log' )
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system(''+NormalizeScript+'.py'+' 2>&1 | tee -a PinAPL-Py.log' )
 DoneMsg = 'Read count normalization completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Update sample names (to include the averaged samples)
 os.chdir(sgRNAReadCountDir)
