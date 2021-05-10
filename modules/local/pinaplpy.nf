@@ -23,6 +23,7 @@ options        = initOptions(params.options)
 process PINAPLPY {
     tag 'Hello'
     label 'process_low'
+    echo true
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
         saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), publish_id:'') }
@@ -31,7 +32,7 @@ process PINAPLPY {
     //               Software MUST be pinned to channel (i.e. "bioconda"), version (i.e. "1.10").
     //               For Conda, the build (i.e. "h9402c20_2") must be EXCLUDED to support installation on different operating systems.
     // TODO nf-core: See section in main README for further information regarding finding and adding container addresses to the section below.
-    conda (params.enable_conda ? "anaconda::yaml=0.2.5 conda-forge::pyyaml=5.4.1 more-itertools=8.7.0 pandas=1.2.4" : null)
+    conda (params.enable_conda ? "anaconda::yaml=0.2.5 conda-forge::pyyaml=5.4.1 more-itertools=8.7.0 pandas=1.2.4 xlrd=1.2.0 openpyxl=3.0.7 joblib=1.0.1 basemap=1.3.0 bioconda::pysam=0.16.0" : null)
 //    if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
 //        container "https://depot.galaxyproject.org/singularity/YOUR-TOOL-HERE"
 //    } else {
@@ -46,6 +47,8 @@ process PINAPLPY {
     // TODO nf-core: Where applicable please provide/convert compressed files as input/output
     //               e.g. "*.fastq.gz" and NOT "*.fastq", "*.bam" and NOT "*.sam" etc.
     path config
+    path datasheet
+    path library
 
     output:
     // TODO nf-core: Named file extensions MUST be emitted for ALL output channels
@@ -55,7 +58,6 @@ process PINAPLPY {
 
     script:
     // def software = getSoftwareName(task.process)
-    
     // TODO nf-core: Where possible, a command MUST be provided to obtain the version number of the software e.g. 1.10
     //               If the software is unable to output a version number on the command-line then it can be manually specified
     //               e.g. https://github.com/nf-core/modules/blob/master/software/homer/annotatepeaks/main.nf
@@ -65,6 +67,6 @@ process PINAPLPY {
     // TODO nf-core: Please replace the example samtools command below with your module's command
     // TODO nf-core: Please indent the command appropriately (4 spaces!!) to help with readability ;)
     """
-    PinAPL_NoAlignment.py
+    PinAPL_NoAlignment.py $config $library
     """
 }
