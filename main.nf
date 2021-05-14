@@ -161,14 +161,15 @@ workflow {
     ["group", meta, file]}.groupTuple().map{
         group, meta, file ->
         [meta, file]
-    }.set{mageck_input_ch}
+    }.set{aligned_reads}
+
 
     MAGECK_COUNT (
-        mageck_input_ch, ch_library
+        aligned_reads, ch_library
     )
 
     PINAPLPY (
-        ch_pinaplconfig, ch_datasheet, CONVERT_LIBRARY_FILE.out.pinapl_library
+        ch_pinaplconfig, ch_datasheet, CONVERT_LIBRARY_FILE.out.pinapl_library, aligned_reads
     )
 
     /*

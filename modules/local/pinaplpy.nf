@@ -49,6 +49,7 @@ process PINAPLPY {
     path config
     path datasheet
     path library
+    tuple val(meta), path(file)
 
     output:
     // TODO nf-core: Named file extensions MUST be emitted for ALL output channels
