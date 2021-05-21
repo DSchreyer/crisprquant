@@ -95,17 +95,19 @@ def CountReads(sample):
     n = len(FileNames)
     Samples = list(DataSheet['SAMPLE NAME'].values)
     ReadsFilename = [FileNames[j] for j in range(n) if Samples[j] == sample][0] 
-    ReadsFilename0 = 'Trim_'+ReadsFilename          
-    
+    ReadsFilename0 = ''+ReadsFilename
+
+    print("Test")
+    print(ReadsFilename)
     # ------------------------------------------
     # Extract and analyze alignments
     # ------------------------------------------     
     print('Loading alignment ...')      
     # CLASSIFY ALIGNMENTS 
-    os.chdir(AlnDir)
-    sam_file = ReadsFilename0 + '_bw2output.sam' 
+    # os.chdir(AlnDir)
+    sam_file = ReadsFilename0 + '.sam' 
     sam_file_present = path.exists(sam_file)
-    bam_file = ReadsFilename0 + '_bw2output.bam'
+    bam_file = ReadsFilename0 + '.bam'
     bam_file_present = path.exists(bam_file)    
     if sam_file_present:
         sam_file = sam_file
@@ -205,7 +207,7 @@ def CountReads(sample):
     # ------------------------------------------
     # MAPPING QUALITY HISTOGRAM
     # ------------------------------------------
-    os.chdir(OutputDir)
+    # os.chdir(OutputDir)
     print('Plotting mapping quality ...')
     maxQuality = max(mapQ)
     fig, ax = plt.subplots(figsize=(3.5,2.9))
