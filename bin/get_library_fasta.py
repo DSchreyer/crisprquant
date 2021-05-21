@@ -92,10 +92,11 @@ def get_library_fasta(file_in, file_out):
                         print_error("library sequence contains wrong bases!", "Line", line)
 
             ## Create Dictionary with sgRNAs, genes and sequence
-            new_id = "_".join([id, gene])
+            # new_id = "_".join([id, gene])
+
             ## Create sample mapping dictionary = {sample: {replicate : [ single_end, fastq_1, fastq_2 ]}}
-            if new_id not in fasta_run_dict:
-              fasta_run_dict[new_id] = sequence
+            if id not in fasta_run_dict:
+              fasta_run_dict[id] = sequence
             else:
                 print_error("Reference Library File contains duplicate rows!", "Line", line)
 

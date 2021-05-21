@@ -23,6 +23,7 @@ options        = initOptions(params.options)
 process MAGECK_COUNT {
     tag "$id"
     label 'process_medium'
+    echo true
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
         saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), publish_id:meta.id) }
@@ -48,6 +49,7 @@ process MAGECK_COUNT {
 
     tuple val(meta), path(file)
     path(library)
+
     output:
     path 'mageck.count.txt', emit: count
     path 'mageck.count_normalized.txt', emit: norm
@@ -76,9 +78,11 @@ process MAGECK_COUNT {
     id = meta.id.join(",")
 
     """
-    sed 's/,/\t/g' $library > library_mageck.txt
-    echo $library
+    tail -n +2 $library | sed 's/,/\t/g' > library_mageck.txt
     head library_mageck.txt
+
+    echo $file
+
     mageck count \
         -l library_mageck.txt \
         -n mageck \

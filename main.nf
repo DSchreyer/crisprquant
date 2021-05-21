@@ -103,6 +103,7 @@ include { MULTIQC               } from './modules/nf-core/software/multiqc/main'
 include { BOWTIE2_BUILD         } from './modules/nf-core/software/bowtie2/build/main' addParams( options: [:]                          )
 include { BOWTIE2_ALIGN         } from './modules/nf-core/software/bowtie2/align/main' addParams( options: [:]                          )
 include { CUTADAPT              } from './modules/nf-core/software/cutadapt/main'      addParams( options: [:]                          )
+// include { TRIMGALORE            } from './modules/nf-core/software/trimgalore/main'      addParams( options: [:]                          )
 
 
 ////////////////////////////////////////////////////
@@ -130,13 +131,14 @@ workflow {
         ch_library
     )
 
+    // TODO: GUNZIP FASTQ FILES
 
     /*
      * MODULE: Run FastQC
      */
     //INPUT_CHECK.out.reads.view()
 
-    INPUT_CHECK.out.reads.buffer { it == "*.fastq.gz" }.view()
+    // INPUT_CHECK.out.reads.buffer { it == "*.fastq.gz" }.view()
 
     FASTQC (
         INPUT_CHECK.out.reads

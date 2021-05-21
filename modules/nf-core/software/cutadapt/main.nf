@@ -30,10 +30,14 @@ process CUTADAPT {
     def software = getSoftwareName(task.process)
     def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     def trimmed  = meta.single_end ? "-o ${prefix}.trim.fastq.gz" : "-o ${prefix}_1.trim.fastq.gz -p ${prefix}_2.trim.fastq.gz"
+    def five_prime_adapter = params.five_prime_adapter != "" ? "-g ${params.five_prime_adapter}" : ''
+    def three_prime_adapter = params.three_prime_adapter != "" ? "-a ${params.three_prime_adapter}" : ''
     """
     cutadapt \\
         --cores $task.cpus \\
         $options.args \\
+        $five_prime_adapter \\
+        $three_prime_adapter \\
         $trimmed \\
         $reads \\
         > ${prefix}.cutadapt.log
