@@ -177,9 +177,10 @@ def CountReads(sample):
     # Mapping statistics
     # ------------------------------------------ 
     print('Writing alignment logfile ...')  
-    if not os.path.exists(OutputDir):
-        os.makedirs(OutputDir)        
-    os.chdir(OutputDir)    
+#     if not os.path.exists(OutputDir):
+#         os.makedirs(OutputDir)        
+#     os.chdir(OutputDir)    
+    print(logfilename)
     LogFile = open(logfilename,'w')         
     LogFile.write(sample+' Alignment Results\n')
     LogFile.write('**************************************\n')

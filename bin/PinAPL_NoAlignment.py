@@ -147,7 +147,6 @@ for sample in SampleNames:
     # Analyze alignment output and get sgRNA counts
     os.system('PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
     os.system(''+ClassifyScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
-    exit()
     # Apply sgRNA count cutoff and get gene counts
     os.system(''+CutoffScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
 DoneMsg = 'Read count acquisition completed.'
