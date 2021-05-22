@@ -187,129 +187,129 @@ os.chdir(ScriptsDir)
 
 # Analyze Counts
 StatMsg = 'Analyzing sgRNA read count distribution ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 for sample in SampleNames:
-    os.system('python -u PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
-    os.system('python -u '+StatsScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system(''+StatsScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
 DoneMsg = 'Read count distribution analysis completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Analyze Controls
 StatMsg = 'Analyzing control samples ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
-os.system('python -u '+ControlScript+'.py'+' 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system(''+ControlScript+'.py'+' 2>&1 | tee -a PinAPL-Py.log')
 DoneMsg = 'Control sample analysis completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Rank sgRNA
 StatMsg = 'sgRNA '+ScreenType+' analysis ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 for sample in TreatmentSamples: 
-    os.system('python -u PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
-    os.system('python -u '+sgRNARankScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system(''+sgRNARankScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
 DoneMsg = 'sgRNA '+ScreenType+' analysis completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Prepare sgRNA scatterplots
 StatMsg = 'Plotting sgRNA read counts ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 for sample in TreatmentSamples:
-    os.system('python -u PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')        
-    os.system('python -u '+ScatterScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
-    os.system('python -u '+zFCScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')    
-    os.system('python -u '+vFCScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')    
+    os.system('PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')        
+    os.system(''+ScatterScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system(''+zFCScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')    
+    os.system(''+vFCScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')    
 DoneMsg = 'Read count scatterplots completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Prepare density plots
 if IncludeDensityPlots:
     StatMsg = 'Plotting sgRNA read counts densities ...'
-    os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
     for sample in TreatmentSamples:
-        os.system('python -u PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')        
-        os.system('python -u '+DensityScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+        os.system('PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')        
+        os.system(''+DensityScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
     DoneMsg = 'Density plots completed.'
-    os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Prepare replicate scatterplots
 StatMsg = 'Analyzing replicate correlation ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 for treatment in Treatments:
-    os.system('python -u PrintStatus.py ProcessSample '+treatment+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py ProcessSample '+treatment+' 2>&1 | tee -a PinAPL-Py.log')
     if len(Replicates[treatment]) >= 2: 
         PairIt = itertools.combinations(Replicates[treatment],2)
         for pair in PairIt:
-            os.system('python -u '+ReplicateScript+'.py '+pair[0]+' '+pair[1]+' 2>&1 | tee -a PinAPL-Py.log')
+            os.system(''+ReplicateScript+'.py '+pair[0]+' '+pair[1]+' 2>&1 | tee -a PinAPL-Py.log')
 DoneMsg = 'Replicate correlation analysis completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Prepare heatmap
 StatMsg = 'Analyzing sample clusters ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
-os.system('python -u '+ClusterScript+'.py'+' 2>&1 | tee -a PinAPL-Py.log' )
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system(''+ClusterScript+'.py'+' 2>&1 | tee -a PinAPL-Py.log' )
 DoneMsg = 'Clustering analysis completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Rank genes 
 StatMsg = 'Gene ranking ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 for sample in TreatmentSamples:
-    os.system('python -u PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
-    os.system('python -u '+GeneRankScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system(''+GeneRankScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')
 DoneMsg = 'Gene ranking completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Prepare gene score scatterplots
 StatMsg = 'Plotting gene ranks ...'
-os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 for sample in TreatmentSamples:
-    os.system('python -u PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
-    os.system('python -u '+GenePlotScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')    
+    os.system('PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
+    os.system(''+GenePlotScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')    
 DoneMsg = 'Gene rank scatterplots completed.'
-os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Auto-highlight top 10 genes
 if AutoHighlight:
     StatMsg = 'Extracting top 10 ranked genes ...'
-    os.system('python -u PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
     for sample in TreatmentSamples:
-        os.system('python -u PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')  
-        os.system('python -u '+ExtractTop10Script+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')         
+        os.system('PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')  
+        os.system(''+ExtractTop10Script+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')         
         Top10Genes = GetTop10Genes(sample)
         for gene in Top10Genes:
             print('--------------------------------')
             print('Plotting scores: '+gene)
             print('--------------------------------')
-            os.system('python -u '+GenePlotScript+'.py '+sample+' '+gene)
-            os.system('python -u '+zFCScript+'.py '+sample+' '+gene)
-            os.system('python -u '+vFCScript+'.py '+sample+' '+gene)
-            os.system('python -u '+ScatterScript+'.py '+sample+' '+gene)    
+            os.system(''+GenePlotScript+'.py '+sample+' '+gene)
+            os.system(''+zFCScript+'.py '+sample+' '+gene)
+            os.system(''+vFCScript+'.py '+sample+' '+gene)
+            os.system(''+ScatterScript+'.py '+sample+' '+gene)    
 
 # Combine gene ranks across replicates
 if IncludeGeneRankCombination:
-    os.system('python -u PrintStatus.py CombineReplicates '+sample+' 2>&1 | tee -a PinAPL-Py.log') 
+    os.system('PrintStatus.py CombineReplicates '+sample+' 2>&1 | tee -a PinAPL-Py.log') 
     for treatment in Treatments:  
         if 'Control' not in treatment:            
-            os.system('python -u '+CombineScript+'.py '+treatment+' 2>&1 | tee -a PinAPL-Py.log')        
+            os.system(''+CombineScript+'.py '+treatment+' 2>&1 | tee -a PinAPL-Py.log')        
     DoneMsg = 'Gene ranking analysis completed.'
-    os.system('python -u PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Final Time Stamp
 end = time.time()
-os.system('python -u PrintStatus.py AllDone blank 2>&1 | tee -a PinAPL-Py.log') 
+os.system('PrintStatus.py AllDone blank 2>&1 | tee -a PinAPL-Py.log') 
 sec_elapsed = end - start
 if sec_elapsed < 60:
     time_elapsed = sec_elapsed
     StatMsg = 'Time elapsed [secs]: ' + '%.3f' % time_elapsed +'\n'
-    os.system('python -u PrintStatus.py TimeStamp "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py TimeStamp "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 elif sec_elapsed < 3600:
     time_elapsed = sec_elapsed/60
     StatMsg = 'Time elapsed [mins]: ' + '%.3f' % time_elapsed +'\n'
-    os.system('python -u PrintStatus.py TimeStamp "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py TimeStamp "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 else:
     time_elapsed = sec_elapsed/3600
     StatMsg = 'Time elapsed [hours]: ' + '%.3f' % time_elapsed +'\n'
-    os.system('python -u PrintStatus.py TimeStamp "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+    os.system('PrintStatus.py TimeStamp "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
     
 # Copy Log Files 
 if not os.path.exists(LogFileDir):
