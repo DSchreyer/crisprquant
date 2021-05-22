@@ -105,17 +105,25 @@ def CountReads(sample):
     print('Loading alignment ...')      
     # CLASSIFY ALIGNMENTS 
     # os.chdir(AlnDir)
-    sam_file = ReadsFilename0 + '.sam' 
-    sam_file_present = path.exists(sam_file)
-    bam_file = ReadsFilename0 + '.bam'
-    bam_file_present = path.exists(bam_file)    
-    if sam_file_present:
-        sam_file = sam_file
-    elif bam_file_present: 
-        os.system('samtools view -h '+bam_file+' > '+sam_file)
-    else:
+    #sam_file = ReadsFilename0 + '.sam' 
+    #sam_file_present = path.exists(sam_file)
+    #bam_file = ReadsFilename0 + '.bam'
+    #bam_file_present = path.exists(bam_file)    
+    #if sam_file_present:
+     #   sam_file = sam_file
+    #elif bam_file_present: 
+    #    os.system('samtools view -h '+bam_file+' > '+sam_file)
+    #else:
+     #   print('### ERROR: No alignment file present ###')
+    #bw2sam = pysam.AlignmentFile(sam_file,'rb')
+        if bam_file_present == False:
         print('### ERROR: No alignment file present ###')
-    bw2sam = pysam.AlignmentFile(sam_file,'rb')
+    BFS = str("bam_file_sorted")
+    pysam.sort("-o", BFS + ".bam", bam_file )
+    pysam.index(BFS + ".bam")  
+    bw2sam = pysam.AlignmentFile(BFS + ".bam",'rb')
+    
+    
     print('Applying matching threshold ...')
     print('Applying ambiguity threshold ...')       
     NFail = 0; NUnique = 0; NTol = 0; NAmb = 0
