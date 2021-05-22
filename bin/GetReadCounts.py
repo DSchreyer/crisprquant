@@ -96,9 +96,6 @@ def CountReads(sample):
     Samples = list(DataSheet['SAMPLE NAME'].values)
     ReadsFilename = [FileNames[j] for j in range(n) if Samples[j] == sample][0] 
     ReadsFilename0 = ''+ReadsFilename
-
-    print("Test")
-    print(ReadsFilename)
     # ------------------------------------------
     # Extract and analyze alignments
     # ------------------------------------------     
@@ -312,5 +309,8 @@ def CountReads(sample):
         
 
 if __name__ == "__main__":
+    wd = os.getcwd()
     input1 = sys.argv[1]
     CountReads(input1)
+    os.chdir(wd)
+    
