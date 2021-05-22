@@ -40,8 +40,11 @@ def AverageReadCounts(treatment):
     colnames_g = ['gene','counts']    
     
     # sgRNA counts
+    print(os.getcwd())
     os.chdir(sgRNAReadCountDir)
     ReplFiles = [d for d in os.listdir(sgRNAReadCountDir) if treatment in d and '_avg' not in d]
+    ReplFiles = glob.glob(treatment + "*GuideCounts.txt", recursive=False)
+    print(ReplFiles)
     R = len(ReplFiles)
     if R >= 2:
         print('Averaging read counts over '+str(R)+' replicates ...')
@@ -70,8 +73,9 @@ def AverageReadCounts(treatment):
         print('(No filenames found)')               
        
     # gene counts
-    os.chdir(GeneReadCountDir)
-    ReplFiles = [d for d in os.listdir(GeneReadCountDir) if treatment in d and '_avg' not in d]
+    # os.chdir(GeneReadCountDir)
+    # ReplFiles = [d for d in os.listdir(GeneReadCountDir) if treatment in d and '_avg' not in d]
+    ReplFiles = glob.glob(treatment + "*GeneCounts.txt", recursive=False)
     R = len(ReplFiles)
     if R >= 2:
         AllGeneCounts = pandas.DataFrame()
