@@ -78,7 +78,7 @@ def GeneRankingAnalysis(sample):
     # ------------------------------------------------
     # Read sgRNA enrichment/depletion table
     # ------------------------------------------------
-    os.chdir(sgRNARanksDir)
+    # os.chdir(sgRNARanksDir)
     print('Loading sgRNA '+screentype+' table ...')
     filename = glob.glob(sample+'_*sgRNAList.txt')[0]
     sgRNARanking = pandas.read_table(filename, sep='\t')
