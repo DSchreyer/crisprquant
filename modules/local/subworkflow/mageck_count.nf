@@ -79,10 +79,6 @@ process MAGECK_COUNT {
 
     """
     tail -n +2 $library | sed 's/,/\t/g' > library_mageck.txt
-    head library_mageck.txt
-
-    echo $file
-
     mageck count \
         -l library_mageck.txt \
         -n mageck \
