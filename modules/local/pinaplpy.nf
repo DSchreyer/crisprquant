@@ -32,7 +32,7 @@ process PINAPLPY {
     //               Software MUST be pinned to channel (i.e. "bioconda"), version (i.e. "1.10").
     //               For Conda, the build (i.e. "h9402c20_2") must be EXCLUDED to support installation on different operating systems.
     // TODO nf-core: See section in main README for further information regarding finding and adding container addresses to the section below.
-    conda (params.enable_conda ? "anaconda::yaml=0.2.5 conda-forge::pyyaml=5.4.1 more-itertools=8.7.0 pandas=1.2.4 xlrd=1.2.0 openpyxl=3.0.7 joblib=1.0.1 basemap=1.3.0 bioconda::pysam=0.16.0 scipy=1.6.2 statsmodels=0.12.2" : null)
+    conda (params.enable_conda ? "anaconda::yaml=0.2.5 conda-forge::pyyaml=5.4.1 more-itertools=8.7.0 pandas=1.2.4 xlrd=1.2.0 openpyxl=3.0.7 joblib=1.0.1 basemap=1.3.0 bioconda::pysam=0.16.0 scipy=1.6.2 statsmodels=0.12.2 bioconda::samtools=1.10" : null)
 //    if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
 //        container "https://depot.galaxyproject.org/singularity/YOUR-TOOL-HERE"
 //    } else {
