@@ -179,11 +179,11 @@ DoneMsg = 'Read count normalization completed.'
 os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 
 # Update sample names (to include the averaged samples)
-os.chdir(sgRNAReadCountDir)
+# os.chdir(sgRNAReadCountDir)
 Filenames = glob.glob('*GuideCounts.txt')
 SampleNames = [filename[0:-16] for filename in Filenames]
 TreatmentSamples = [samplename for samplename in SampleNames if 'Control' not in samplename]
-os.chdir(ScriptsDir)
+print(TreatmentSamples)
 
 # Analyze Counts
 StatMsg = 'Analyzing sgRNA read count distribution ...'
@@ -204,6 +204,7 @@ os.system('PrintStatus.py Done "'+DoneMsg+'" 2>&1 | tee -a PinAPL-Py.log')
 # Rank sgRNA
 StatMsg = 'sgRNA '+ScreenType+' analysis ...'
 os.system('PrintStatus.py SubHeader "'+StatMsg+'" 2>&1 | tee -a PinAPL-Py.log')
+print(TreatmentSamples)
 for sample in TreatmentSamples: 
     os.system('PrintStatus.py ProcessSample '+sample+' 2>&1 | tee -a PinAPL-Py.log')
     os.system(''+sgRNARankScript+'.py '+sample+' 2>&1 | tee -a PinAPL-Py.log')

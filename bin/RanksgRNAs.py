@@ -158,9 +158,9 @@ def PrepareGuideRanking(sample):
     # Save sgRNA dataframe
     # -----------------------------------------------
     # Write dataframe                     
-    if not os.path.exists(ListDir):
-        os.makedirs(ListDir)
-    os.chdir(ListDir)             
+   # if not os.path.exists(ListDir):
+   #     os.makedirs(ListDir)
+   # os.chdir(ListDir)             
     print('Writing results dataframe ...')
     Results_df = pandas.DataFrame(data = {'sgRNA': [sgIDs[k] for k in range(L)],
                                      'gene': [genes[k] for k in range(L)],

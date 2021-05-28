@@ -128,7 +128,7 @@ def AnalyzeCounts(sample):
     plt.setp(bp['whiskers'], color='black')
     for patch in bp['boxes']:
         patch.set(facecolor='#92fcae') 
-    ax0.set_xticks([''])
+    # ax0.set_xticks([''])
     ax0.set_ylabel('Counts per sgRNA', fontsize=11)
     ax0.tick_params(labelsize=11)
     # Reads per gene: Boxplot
@@ -138,7 +138,7 @@ def AnalyzeCounts(sample):
     plt.setp(bp['whiskers'], color='black')
     for patch in bp['boxes']:
         patch.set(facecolor='#9de4f9') 
-    ax2.set_xticks([''])
+    # ax2.set_xticks([''])
     ax2.set_ylabel('Counts per Gene', fontsize=11)
     ax2.tick_params(labelsize=11)
     print('Generating histograms...')

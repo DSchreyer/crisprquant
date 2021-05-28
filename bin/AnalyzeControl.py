@@ -53,7 +53,7 @@ def EstimateControlCounts():
     print('Reading sgRNA counts ...')    
     os.chdir(sgRNAReadCountDir)
     ControlSamples = [d for d in os.listdir(sgRNAReadCountDir) if 'Control' in d and \
-        'normalized' in d and '_avg' not in d]
+        'GuideCounts_normalized' in d and '_avg' not in d]
     CountFile = pd.read_table(ControlSamples[0], sep = '\t', names=['sgID','gene','counts'])
     sgIDs = list(CountFile['sgID'])
     genes = list(CountFile['gene'])
