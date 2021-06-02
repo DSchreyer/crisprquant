@@ -44,7 +44,7 @@ def PrepareGuideRanking(sample):
     sgRNAReadCountDir = config['sgRNAReadCountDir']
     CtrlDir = config['ControlDir']
     ListDir = config['sgRNARanksDir']
-    CtrlCounts_Filename = 'Control_GuideCounts_normalized.txt'
+    CtrlCounts_Filename = 'Ctrl_GuideCounts_normalized.txt'
     ScreenType = config['ScreenType']
     alpha = config['alpha_s']
     padj = config['padj']
