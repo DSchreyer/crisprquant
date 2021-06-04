@@ -45,7 +45,7 @@ def EstimateControlCounts():
     res = config['dpi']
     svg = config['svg']
     p_overdisp = config['p_overdisp']
-    CtrlCounts_Filename = 'Control_GuideCounts_normalized.txt'
+    CtrlCounts_Filename = 'Ctrl_GuideCounts_normalized.txt' #If named Control, the sgRNA ranking will use the file generated here and the previous GuideCountsnormalized file, without p,values
    
     # --------------------------------    
     # Generate table of control counts
