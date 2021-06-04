@@ -57,7 +57,7 @@ def GeneRankingAnalysis(sample):
     # Get parameters
     # ------------------------------------------------
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()    
     ScriptsDir = config['ScriptsDir']
     sgRNARanksDir = config['sgRNARanksDir']
@@ -113,6 +113,7 @@ def GeneRankingAnalysis(sample):
                                        columns = ['gene','NB_significant'])        
     Temp_DF = Temp_DF.sort_values(['NB_significant'],ascending=False)
     NB_sig = list(Temp_DF['NB_significant'])
+    
     genes0 = list(Temp_DF['gene'])
     n0 = NB_sig.index(False)
     sigGenes = [genes0[k] for k in range(n0)]       # genes with at least 1 signif. sgRNA
@@ -229,4 +230,5 @@ def GeneRankingAnalysis(sample):
 
 if __name__ == "__main__":
     input1 = sys.argv[1]
+    print("-"*10, input1)
     GeneRankingAnalysis(input1) 

@@ -34,7 +34,7 @@ def GOI_Scatterplot(sample,GOI='none',Annot='none',NonT='none',Transp='none'):
     # Get parameters
     # ------------------------------------------------
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     ScriptsDir = config['ScriptsDir']
     WorkingDir = config['WorkingDir'] 

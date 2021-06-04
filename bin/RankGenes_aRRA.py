@@ -68,7 +68,7 @@ def aRRA_null(I):
 
 def compute_aRRA(HitList):    
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()          
     Np = config['Np']
     r = config['NumGuidesPerGene']

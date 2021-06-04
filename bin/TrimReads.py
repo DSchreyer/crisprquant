@@ -17,7 +17,7 @@ def RunCutadapt():
     start_total = time.time()  
     # Get parameters    
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()    
     DataDir = config['DataDir']
     TempDataDir = config['TempDataDir']

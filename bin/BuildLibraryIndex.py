@@ -27,7 +27,7 @@ def BuildBowtieIndex():
     # Get parameters
     # ------------------------------------------------
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     ScriptsDir = config['ScriptsDir']
     bw2Dir = config['bw2Dir']    

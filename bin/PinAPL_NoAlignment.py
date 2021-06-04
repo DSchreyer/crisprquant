@@ -25,7 +25,7 @@ config_file_path = sys.argv[1]
 
 # Open configuration file
 configFile = open(config_file_path,'r')
-config = yaml.load(configFile)
+config = yaml.safe_load(configFile)
 configFile.close()  
 # Get parameters 
 ScreenType = config['ScreenType']
