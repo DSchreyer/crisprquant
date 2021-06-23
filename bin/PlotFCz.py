@@ -38,7 +38,7 @@ def zScoreFC(sample,GOI='none',Annot='none',NonT='none'):
     # Get parameters
     # ------------------------------------------------
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     sgRNARanksDir = config['sgRNARanksDir']
     ScriptsDir = config['ScriptsDir']

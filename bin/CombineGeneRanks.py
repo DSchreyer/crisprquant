@@ -24,7 +24,7 @@ def GeneRankCombination(treatment):
     # Get parameters    
     start = time.time()
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()    
     alpha = config['alpha_g']
     padj = config['padj']

@@ -47,7 +47,7 @@ def AvgLogFC_null(I):
 
 def compute_AvgLogFC(HitList,nGuides):    
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()  
     r = config['NumGuidesPerGene']
     screentype = config['ScreenType']

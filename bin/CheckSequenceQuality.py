@@ -16,7 +16,7 @@ def RunSeqQC():
     start_total = time.time()
     # Get parameters    
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     WorkingDir = config['WorkingDir']
     DataDir = config['DataDir']

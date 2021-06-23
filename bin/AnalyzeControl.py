@@ -34,7 +34,7 @@ def EstimateControlCounts():
     # Get parameters
     # ------------------------------------------------
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     delta = config['delta']
     ScriptsDir = config['ScriptsDir']

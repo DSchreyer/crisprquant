@@ -36,7 +36,7 @@ def GeneScoreScatterplot(sample,GOI='none'):
     # Get parameters
     # ------------------------------------------------
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     GeneMetric = config['GeneMetric']
     RankingsDir = config['GeneDir']
