@@ -10,7 +10,7 @@ def parse_args(args=None):
     parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
     parser.add_argument("FILE_IN", help="Library reference file.")
     # parser.add_argument("MAGECK_OUT", help="Output file for Mageck")
-    parser.add_argument("PINAPLPY_OUT", help="Output file for PinAPL-py")
+    parser.add_argument("FILE_OUT", help="Output file in the correct format")
     return parser.parse_args(args)
 
 def main(args=None):
@@ -21,10 +21,10 @@ def main(args=None):
     except Exception:
         read_file = pd.read_csv(args.FILE_IN, header=0)
 
-    # reorder for PinAPL-PY
-    pinapl = read_file[["gene", "id", "sequence"]]
-    pinapl.columns = ["gene_ID", "sgRNA_ID", "Seq"]
-    pinapl.to_csv(args.PINAPLPY_OUT, header=True, index=False, sep="\t")
+    # reorder and write file
+
+    out = read_file[["id", "sequence", "gene"]]
+    out.to_csv(args.FILE_OUT, header=True, index=False, sep=",")
 
 main()
 exit()

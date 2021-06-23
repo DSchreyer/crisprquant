@@ -19,11 +19,11 @@ process CONVERT_LIBRARY_FILE {
     path library
     
     output:
-    path 'pinaplpy_library.tsv', emit:pinapl_library
+    path 'valid_library.csv', emit:valid_library
 
 
     script:  // This script is bundled with the pipeline, in nf-core/crisprquant/bin/
     """
-    file_conversions.py $library pinaplpy_library.tsv
+    file_conversions.py $library valid_library.csv
     """
 }

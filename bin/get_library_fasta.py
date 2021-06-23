@@ -39,7 +39,7 @@ def get_library_fasta(file_in, file_out):
     id,sequence,gene
     s_10007,TGTTCACAGTATAGTTTGCC,CCNA1
     s_10008,TTCTCCCTAATTGCTTGCTG,CCNA1
-    s_10027,ACATGTTGCTTCCCCTTGCA,CCNC,
+    s_10027,ACATGTTGCTTCCCCTTGCA,CCNC
     """
 
     fasta_run_dict = {}

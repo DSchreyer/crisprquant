@@ -123,12 +123,12 @@ workflow {
     INPUT_CHECK (
         ch_input
     )
-
-    GET_LIBRARY_FASTA (
-        ch_library
-    )
     CONVERT_LIBRARY_FILE (
         ch_library
+    )
+
+    GET_LIBRARY_FASTA (
+        CONVERT_LIBRARY_FILE.out.valid_library
     )
 
     // TODO: GUNZIP FASTQ FILES
@@ -171,7 +171,7 @@ workflow {
     )
 
     PINAPLPY (
-        ch_pinaplconfig, ch_datasheet, CONVERT_LIBRARY_FILE.out.pinapl_library, aligned_reads
+        ch_pinaplconfig, ch_datasheet, CONVERT_LIBRARY_FILE.out.valid_library, aligned_reads
     )
 
     /*

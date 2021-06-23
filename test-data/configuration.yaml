@@ -9,13 +9,13 @@
 ScreenType: 'enrichment'              # type of screen ['enrichment'/'depletion']
 
 # LIBRARY PARAMETERS
-LibFilename: 'pinaplpy_library.tsv'        # filename of library spreadsheet
+LibFilename: 'valid_library.csv'        # filename of library spreadsheet
 seq_5_end: 'TCTTGTGGAAAGGACGAAACACCN'       # 5'-sequence adapter
 #seq_3_end: 'GTTTTAGAGCTAGAAATAGCAAGTT'       # sequence 3' of sgRNA in read
 CtrlPrefix: 'Control_'
 NonTargetPrefix: 'NonTargeting'             # prefix for non-targeting sgRNAs in library
 NumGuidesPerGene: 6                     # number of sgRNAs per gene 
-                                       
+
 # ANALYSIS OPTIONS
 GeneMetric: 'SigmaFC'                   # metric for gene ranking ['SigmaFC'/'AvgLogFC'/'aRRA'/'STARS']
 padj: 'sidak'                          # method for p-value adjustment ['fdr_bh'/'sidak'/'bonferroni']
@@ -76,9 +76,9 @@ TrimLogDir: './'
 sgRNARanksDir: './'
 GeneDir: './'
 ControlDir: '.'
-HeatDir: '.'
-AlnQCDir: '.'
-sgRNAReadCountDir: '.'
+HeatDir: './'
+AlnQCDir: './'
+sgRNAReadCountDir: './'
 GeneReadCountDir: './'
 CountQCDir: './'
 ScatterDir: './'
