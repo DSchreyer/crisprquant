@@ -57,7 +57,7 @@ def PrepareGuideRanking(sample):
     
     # --------------------------------
     # Read control and sample data
-    # --------------------------------   
+    # --------------------------------
     print('Loading sgRNA read counts ...')     
     os.chdir(CtrlDir)
     Ctrl_File = pandas.read_table(CtrlCounts_Filename, sep='\t')

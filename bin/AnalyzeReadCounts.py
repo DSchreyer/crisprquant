@@ -49,7 +49,7 @@ def AnalyzeCounts(sample):
     AnalysisDir = config['AnalysisDir']
     sgRNAReadCountDir = config['sgRNAReadCountDir']
     GeneReadCountDir = config['GeneReadCountDir']
-    OutputDir = config['CountQCDir']+sample
+    # OutputDir = config['CountQCDir']+sample
     res = config['dpi']    
     svg = config['svg']
     logfilename = sample+'_ReadCount_Statistics.txt'
@@ -57,22 +57,22 @@ def AnalyzeCounts(sample):
     # --------------------------------------
     # Load counts
     # --------------------------------------
-    os.chdir(sgRNAReadCountDir)
+    # os.chdir(sgRNAReadCountDir)
     colnames = ['ID','gene','counts']
     GuideFileName = sample+'_GuideCounts_normalized.txt'
     GuideFile = pd.read_table(GuideFileName, sep='\t', names=colnames)
     ReadsPerGuide = list(GuideFile['counts'])
     L = len(ReadsPerGuide)   
-    os.chdir(GeneReadCountDir)
+    # os.chdir(GeneReadCountDir)
     colnames = ['gene','counts']    
     GeneFileName = sample+'_GeneCounts_normalized.txt'
     GeneFile = pd.read_table(GeneFileName, sep='\t', names=colnames)
     ReadsPerGene = list(GeneFile['counts'])
     sgID = list(GuideFile['ID'].values)    
     gene = list(GuideFile['gene'].values)    
-    if not os.path.exists(OutputDir):
-        os.makedirs(OutputDir)
-    os.chdir(OutputDir)
+#     if not os.path.exists(OutputDir):
+#         os.makedirs(OutputDir)
+#     os.chdir(OutputDir)
 
     # --------------------------------------
     # Lorenz Curve
