@@ -28,7 +28,7 @@ def millions(x, pos):
 def PlotReadDepth():    
     # Get parameters    
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     AlnQCDir = config['AlnQCDir']
     WorkingDir = config['WorkingDir']

@@ -22,7 +22,7 @@ from ExtractTop10Genes import *
 
 # Open configuration file
 configFile = open('configuration.yaml','r')
-config = yaml.load(configFile)
+config = yaml.safe_load(configFile)
 configFile.close()  
 # Get parameters 
 ScreenType = config['ScreenType']

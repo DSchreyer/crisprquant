@@ -19,7 +19,7 @@ def CleanUp():
     # Get parameters
     # ------------------------------------------------
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     AlnOutput = config['AlnOutput']
     keepCutReads = config['keepCutReads']    

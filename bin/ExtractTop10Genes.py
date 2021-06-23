@@ -13,7 +13,7 @@ import glob
 
 def printTop10Genes(sample):
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     GeneDir = config['GeneDir']
     ScriptsDir = config['ScriptsDir']
@@ -39,7 +39,7 @@ def printTop10Genes(sample):
 
 def GetTop10Genes(sample):
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     GeneDir = config['GeneDir']
     ScriptsDir = config['ScriptsDir']

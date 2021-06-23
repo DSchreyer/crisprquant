@@ -22,7 +22,7 @@ import glob
 
 def compute_STARS(HitList): 
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()      
     STARSDir = config['STARSDir']
     thr = config['thr_STARS']

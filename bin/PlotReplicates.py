@@ -34,7 +34,7 @@ def Repl_Scatterplot(Repl1,Repl2,GOI='none',Annot='none',NonT='none',Transp='non
     # Get parameters
     # ------------------------------------------------
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     ScriptsDir = config['ScriptsDir']
     WorkingDir = config['WorkingDir'] 

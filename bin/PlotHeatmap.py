@@ -28,7 +28,7 @@ def TopN_Clustering():
     # Get parameters
     # ------------------------------------------------
     configFile = open('configuration.yaml','r')
-    config = yaml.load(configFile)
+    config = yaml.safe_load(configFile)
     configFile.close()
     WorkingDir = config['WorkingDir']
     AnalysisDir = config['AnalysisDir']
