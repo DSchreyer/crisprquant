@@ -128,7 +128,7 @@ workflow {
     )
 
     GET_LIBRARY_FASTA (
-        CONVERT_LIBRARY_FILE.out.valid_library
+        CONVERT_LIBRARY_FILE.out.mageck_library
     )
 
     // TODO: GUNZIP FASTQ FILES
@@ -158,20 +158,26 @@ workflow {
     )
 
     // generate channel for mageck 
-    BOWTIE2_ALIGN.out.bam.map{
+//    BOWTIE2_ALIGN.out.bam.map{
+//    meta, file ->
+//    ["group", meta, file]}.groupTuple().map{
+//        group, meta, file ->
+//        [meta, file]
+//    }.set{aligned_reads}
+
+    CUTADAPT.out.reads.map {
     meta, file ->
     ["group", meta, file]}.groupTuple().map{
         group, meta, file ->
         [meta, file]
     }.set{aligned_reads}
 
-
     MAGECK_COUNT (
-        aligned_reads, ch_library
+        aligned_reads, CONVERT_LIBRARY_FILE.out.mageck_library
     )
 
     PINAPLPY (
-        ch_pinaplconfig, ch_datasheet, CONVERT_LIBRARY_FILE.out.valid_library, aligned_reads
+        ch_pinaplconfig, ch_datasheet, CONVERT_LIBRARY_FILE.out.pinapl_library, aligned_reads
     )
 
     /*
