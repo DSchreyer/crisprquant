@@ -19,11 +19,12 @@ process CONVERT_LIBRARY_FILE {
     path library
     
     output:
-    path 'valid_library.csv', emit:valid_library
+    path 'pinapl_library.csv', emit:pinapl_library
+    path 'mageck_library.csv', emit:mageck_library
 
 
     script:  // This script is bundled with the pipeline, in nf-core/crisprquant/bin/
     """
-    file_conversions.py $library valid_library.csv
+    file_conversions.py $library pinapl_library.csv mageck_library.csv
     """
 }
