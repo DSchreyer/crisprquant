@@ -10,7 +10,8 @@ def parse_args(args=None):
     parser = argparse.ArgumentParser(description=Description, epilog=Epilog)
     parser.add_argument("FILE_IN", help="Library reference file.")
     # parser.add_argument("MAGECK_OUT", help="Output file for Mageck")
-    parser.add_argument("FILE_OUT", help="Output file in the correct format")
+    parser.add_argument("PINAPL_OUT", help="Output file in the correct format for Pinapl-py")
+    parser.add_argument("MAGECK_OUT", help="Output file in the correct format for Mageck")
     return parser.parse_args(args)
 
 def main(args=None):
@@ -24,7 +25,8 @@ def main(args=None):
     # reorder and write file
 
     out = read_file[["id", "sequence", "gene"]]
-    out.to_csv(args.FILE_OUT, header=True, index=False, sep=",")
+    out.to_csv(args.PINAPL_OUT, header=True, index=False, sep=",")
+    out.to_csv(args.MAGECK_OUT, header=True, index=False, sep=",")
 
 main()
 exit()
