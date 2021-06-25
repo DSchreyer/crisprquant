@@ -156,7 +156,7 @@ def check_samplesheet(file_in, file_out):
                         )
                     ## Write to file
                     for idx, sample_info in enumerate(sample_run_dict[sample][replicate]):
-                        sample_id = "{}_R{}_T{}".format(sample, replicate, idx + 1)
+                        sample_id = "{}_R{}".format(sample, replicate)
                         fout.write(",".join([sample_id] + sample_info) + "\n")
 
 
