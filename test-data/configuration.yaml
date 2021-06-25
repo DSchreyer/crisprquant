@@ -9,7 +9,7 @@
 ScreenType: 'enrichment'              # type of screen ['enrichment'/'depletion']
 
 # LIBRARY PARAMETERS
-LibFilename: 'valid_library.csv'        # filename of library spreadsheet
+LibFilename: 'pinapl_library.csv'        # filename of library spreadsheet
 seq_5_end: 'TCTTGTGGAAAGGACGAAACACCN'       # 5'-sequence adapter
 #seq_3_end: 'GTTTTAGAGCTAGAAATAGCAAGTT'       # sequence 3' of sgRNA in read
 CtrlPrefix: 'Control_'
