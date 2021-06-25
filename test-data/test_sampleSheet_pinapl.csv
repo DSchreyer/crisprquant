@@ -1,7 +1,7 @@
 group,replicate,fastq
-CTRL,1,test-data/pinapl/Data/Control_R1.fastq.gz
-CTRL,2,test-data/pinapl/Data/Control_R2.fastq.gz
-ToxA,1,test-data/pinapl/Data/ToxA_R1.fastq.gz
-ToxA,2,test-data/pinapl/Data/ToxA_R2.fastq.gz
-ToxB,1,test-data/pinapl/Data/ToxB_R1.fastq.gz
-ToxB,2,test-data/pinapl/Data/ToxB_R2.fastq.gz
+Control,1,test-data/pinapl/Data/Control_R1.fastq.gz
+Control,2,test-data/pinapl/Data/Control_R2.fastq.gz
+ToxinA,1,test-data/pinapl/Data/ToxA_R1.fastq.gz
+ToxinA,2,test-data/pinapl/Data/ToxA_R2.fastq.gz
+ToxinB,1,test-data/pinapl/Data/ToxB_R1.fastq.gz
+ToxinB,2,test-data/pinapl/Data/ToxB_R2.fastq.gz
