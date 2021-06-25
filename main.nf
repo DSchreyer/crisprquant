@@ -158,22 +158,22 @@ workflow {
     )
 
     // generate channel for mageck 
-//    BOWTIE2_ALIGN.out.bam.map{
-//    meta, file ->
-//    ["group", meta, file]}.groupTuple().map{
-//        group, meta, file ->
-//        [meta, file]
-//    }.set{aligned_reads}
-
-    CUTADAPT.out.reads.map {
+    BOWTIE2_ALIGN.out.bam.map{
     meta, file ->
     ["group", meta, file]}.groupTuple().map{
         group, meta, file ->
         [meta, file]
     }.set{aligned_reads}
 
+    CUTADAPT.out.reads.map {
+    meta, file ->
+    ["group", meta, file]}.groupTuple().map{
+        group, meta, file ->
+        [meta, file]
+    }.set{trimmed_reads}
+
     MAGECK_COUNT (
-        aligned_reads, CONVERT_LIBRARY_FILE.out.mageck_library
+        trimmed_reads, CONVERT_LIBRARY_FILE.out.mageck_library
     )
 
     PINAPLPY (
